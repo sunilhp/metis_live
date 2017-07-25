@@ -56,8 +56,6 @@
                         <div class="clearfix"></div>
                         <figure><img src="@if($records[0]->profile_pic!=""){{ url('/public/'.$records[0]->profile_pic)}} @else {{ url('/resources/assets/img/p_info_img.png')}} @endif"></figure>
                     </div>
-
-
                     <div class="col-md-12 top_part2">
                         <h3>{{$record->fname}} {{$record->lname}}<span>{{$record->email}}</span> <a href="{{ url('/personal-information/edit')}}" class="editLogo"></a> </h3>
 
