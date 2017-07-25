@@ -54,7 +54,7 @@
                 <div class="row">
                     <div class="col-md-12 top_part top_parta">
                         <div class="clearfix"></div>
-                        <figure><img src="{{ url('/resources/assets/img/p_info_img.png')}}"></figure>
+                        <figure><img src="@if($records[0]->profile_pic!=""){{ url('/public/'.$records[0]->profile_pic)}} @else {{ url('/resources/assets/img/p_info_img.png')}} @endif"></figure>
                     </div>
 
 
