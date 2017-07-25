@@ -1,0 +1,13 @@
+<?php
+return array(
+    'driver' => 'mail',
+   # 'host' => 'smtp.gmail.com',
+    #'port' => 587,
+    'from' => array('address' => 'info@metis.com', 'name' => 'Metis'),
+ #   'encryption' => 'tls',
+ #   'username' => 'esunilkumar1@gmail.com',
+ #   'password' => 'omsrisairam',
+    'sendmail' => '/usr/sbin/sendmail -bs',
+    'pretend' => false,
+
+);
