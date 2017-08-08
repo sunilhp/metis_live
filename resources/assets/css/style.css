@@ -1312,6 +1312,14 @@ box-shadow: 0 0 9px 1px rgba(0,0,0,0.4);
   content: '';
 }
 
+.contact_sessions {
+    float: left;
+    padding: 100px 0;
+    text-align: center;
+    width: 100%;
+}
+
+
 
 
 
