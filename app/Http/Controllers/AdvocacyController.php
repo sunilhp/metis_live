@@ -340,6 +340,13 @@ class AdvocacyController extends Controller
     }
 
 
+    public function contact_form_new()
+    {
+        $data = array(
+            'pagetitle' => "Contact Form"
+        );
+        return view('contact_form_new')->with('data', $data);
+    }
 
 
 }
