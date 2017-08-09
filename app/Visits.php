@@ -23,9 +23,13 @@ class Visits extends Model
         return $this->hasOne('App\Providers','id','provider_id');
     }
 
-    public function documents()
+    public function documents_vs()
     {
         return $this->hasMany('App\Documents','visit_id','id');
+    }
+
+    public function documents() {
+        return $this->documents_vs()->where('module','=', 'visits');
     }
 
 }

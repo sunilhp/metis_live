@@ -131,6 +131,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="{{ url('/resources/assets/js/custom.js') }}"></script>
     <script src="{{ url('/resources/assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ url('/resources/assets/js/jquery.mask.js')}}"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 
 <script type="text/javascript">

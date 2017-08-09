@@ -15,6 +15,7 @@
         <div class="container">
             @forelse($records as $record)
             <div class="whiteBox">
+                <a href="{{ url('/medical-history/delete', $record->id)}}" class="deleteLogo"></a>
                 <a href="{{url('/medical-history/'.$record->id)}}" class="editLogo"></a>
                 <h3>{{date('m/d/Y', strtotime($record->event_from))}}  - @if($record->event_to == '0000-00-00') Present @else {{date('m/d/Y', strtotime($record->event_to))}} @endif</h3>
                 <div class="clearfix"></div>

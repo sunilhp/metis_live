@@ -110,21 +110,20 @@ class ToolsController extends Controller
     public function explore(Request $request)
     {
 
+        $data = array(
+            'pagetitle' => "Explore"
+        );
+
         if ($request->isMethod('post')) {
-            $validator = $this->validate_symptoms($request->all());
-
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors(), 'success' => 0]);
-
+            if($request->s1){
+                $explore_info = DB::table('explore')->where( 'status','=',1)->where('name', 'like', '%'.$request->s1.'%')->get();
+                return view('explore-results',['records'=>$explore_info, 'data' => $data, 'search' => $request->s1]);
             }
 
-            $symptom_id = DB::table('symptom_tracker')->insertGetId(['user_id' => $this->user_id, 'symptom_title' => $request->symptoms, 'how_bad' => $request->howbad, 'sym_time' => $request->symtime, 'sym_date' => $request->symdate, 'symptom_located' => $request->located, 'symptom_cant' => $request->icant, 'created_at' => Carbon::now() ]);
-            if ($symptom_id) {
-                return json_encode(array(
-                    'success' => 1
-                ));
+            if($request->s2){
+                $explore_info = DB::table('explore')->where( 'status','=',1)->where('name', 'like', '%'.$request->s2.'%')->get();
+                return view('explore-results',['records'=>$explore_info, 'data' => $data, 'search' => $request->s2]);
             }
-
 
 
         }
@@ -135,5 +134,6 @@ class ToolsController extends Controller
 
         return view('explore',['records'=>$sc_info,'data' => $data,'current' => null]);
     }
+
 
 }

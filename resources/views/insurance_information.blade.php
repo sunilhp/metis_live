@@ -15,6 +15,7 @@
         <div class="container">
             @forelse($records as $record)
                 <div class="whiteBox">
+                    <a href="{{ url('/insurance-information/delete', $record->id)}}" class="deleteLogo"></a>
                     <a href="{{url('/insurance-information/'.$record->id)}}" class="editLogo"></a>
                     <h2>{{$record->insurance_name}}</h2>
                     <div class="clearfix"></div>

@@ -19,6 +19,7 @@
 
     <div class="whiteBox">
         <div class="map" id="map{{$i}}"></div>
+        <a href="{{ url('/preferred-pharmacy/delete', $record->id)}}" class="deleteLogo"></a>
         <a href="{{url('/preferred-pharmacy/'.$record->id)}}" class="editLogo"></a>
         <h2>{{$record->pharmacy_name}}</h2>
         <div class="clearfix"></div>

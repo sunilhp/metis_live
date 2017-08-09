@@ -5,101 +5,21 @@
             <div class="row">
 
                 <ul class="notes">
-
+                    @forelse($records as $record)
                     <li>
-<span class="span1">
-<span class="span1a">APRIL 04</span>
-<span class="span1b">7:33 PM</span>
-</span>
+                        <a href="{{url('documents/notes')}}/{{$record->id}}">
+                        <span class="span1">
+                        <span class="span1a">{{date('M y', strtotime($record->created_at))}}</span>
+                        <span class="span1b">{{date('h:i A', strtotime($record->created_at))}}</span>
+                        </span>
                         <span class="span2">
-Medicare does not cover long-term dental. Look for…
-</span>
+                         {{$record->notes}}
+                        </span>
+                        </a>
                     </li>
-                    <li>
-<span class="span1">
-<span class="span1a">MARCH 21</span>
-<span class="span1b">8:23 AM</span>
-</span>
-                        <span class="span2">
-$109 in co-pay plus cost of ICU care = $1,930
-</span>
-                    </li>
-
-                    <li>
-<span class="span1">
-<span class="span1a">APRIL 04</span>
-<span class="span1b">7:33 PM</span>
-</span>
-                        <span class="span2">
-Medicare does not cover long-term dental. Look for…
-</span>
-                    </li>
-                    <li>
-<span class="span1">
-<span class="span1a">MARCH 21</span>
-<span class="span1b">8:23 AM</span>
-</span>
-                        <span class="span2">
-$109 in co-pay plus cost of ICU care = $1,930
-</span>
-                    </li>
-
-                    <li>
-<span class="span1">
-<span class="span1a">APRIL 04</span>
-<span class="span1b">7:33 PM</span>
-</span>
-                        <span class="span2">
-Medicare does not cover long-term dental. Look for…
-</span>
-                    </li>
-                    <li>
-<span class="span1">
-<span class="span1a">MARCH 21</span>
-<span class="span1b">8:23 AM</span>
-</span>
-                        <span class="span2">
-$109 in co-pay plus cost of ICU care = $1,930
-</span>
-                    </li>
-
-                    <li>
-<span class="span1">
-<span class="span1a">APRIL 04</span>
-<span class="span1b">7:33 PM</span>
-</span>
-                        <span class="span2">
-Medicare does not cover long-term dental. Look for…
-</span>
-                    </li>
-                    <li>
-<span class="span1">
-<span class="span1a">MARCH 21</span>
-<span class="span1b">8:23 AM</span>
-</span>
-                        <span class="span2">
-$109 in co-pay plus cost of ICU care = $1,930
-</span>
-                    </li>
-
-                    <li>
-<span class="span1">
-<span class="span1a">APRIL 04</span>
-<span class="span1b">7:33 PM</span>
-</span>
-                        <span class="span2">
-Medicare does not cover long-term dental. Look for…
-</span>
-                    </li>
-                    <li>
-<span class="span1">
-<span class="span1a">MARCH 21</span>
-<span class="span1b">8:23 AM</span>
-</span>
-                        <span class="span2">
-$109 in co-pay plus cost of ICU care = $1,930
-</span>
-                    </li>
+                    @empty
+                        <li>No notes found.</li>
+                    @endforelse
 
                 </ul>
             </div>

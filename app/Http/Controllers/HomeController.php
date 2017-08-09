@@ -66,7 +66,7 @@ class HomeController extends Controller
         return Validator::make($data, [
             'fname' => 'required|max:255',
             'lname' => 'required|max:255',
-            'contactno' => 'required',
+            'cellno' => 'required',
             'relation' => 'required',
 
         ]);
@@ -208,11 +208,36 @@ class HomeController extends Controller
 
     public function save_personal_info(Request $request)
     {
-       DB::update('update users set address1 = ?, address2 = ?, pnumber = ?, onumber = ?  where id = ?', [$request->address1, $request->address2, $request->pnumber, $request->onumber, $this->user_id]);
 
-        return json_encode(array(
-            'success' => 1
-        ));
+        DB::update('update users set address1 = ?, address2 = ?, pnumber = ?, onumber = ?  where id = ?', [$request->address1, $request->address2, $request->pnumber, $request->onumber, $this->user_id]);
+
+        if (!empty($request->password)){
+            $validator = $this->validator_password($request->all());
+
+        if ($validator->fails()) {
+
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $data = $request->all();
+        $user = Auth::user(auth()->user()->id);
+        if (!Hash::check($data['opassword'], $user->password)) {
+            return back()->withInput($request->all())->with('error', 'The specified password does not match the database password');
+        } else {
+            $updated = DB::update('update users set password = ?  where id = ?', [Hash::make($request->password), $this->user_id]);
+            if ($updated) {
+                return redirect('personal-information')->with('success', 'Profile updated!');
+            } else {
+                return redirect('current-password')->withInput($request->all())->with('error', 'Error updating password');
+            }
+
+        }
+
+    }
+
+        return redirect('personal-information')->with('success', 'Profile updated!');
     }
 
     public function symptom_tracker()
@@ -250,7 +275,7 @@ class HomeController extends Controller
 
         if ($request->isMethod('post')) {
 
-            $updated= DB::update('update patient_emergency_contact set first_name = ?, last_name = ?, contact_no = ?, alternate_no = ?, relation = ? where id = ?', [$request->fname, $request->lname, $request->contactno, $request->alternateno, $request->relation ,$id]);
+            $updated= DB::update('update patient_emergency_contact set first_name = ?, last_name = ?, cell_no = ?,email = ?,home_no = ?, work_no = ?, relation = ? where id = ?', [$request->fname, $request->lname, $request->cellno, $request->email ,$request->homeno, $request->workno, $request->relation ,$id]);
             if($updated){
                 return redirect('emergency-information')->with('success', 'Profile updated!');
             }else{
@@ -270,12 +295,26 @@ class HomeController extends Controller
             );
         }
 
-        $updated = DB::insert('insert into patient_emergency_contact (first_name, last_name,user_id, contact_no, alternate_no, relation) values (?, ?, ?, ?, ?, ?)', [$request->fname, $request->lname,$this->user_id,$request->contactno,$request->alternateno,$request->relation]);
+        $updated = DB::insert('insert into patient_emergency_contact (first_name, last_name,user_id, cell_no,email, home_no,work_no, relation) values (?, ?, ?, ?, ?,? ,?, ?)', [$request->fname, $request->lname,$this->user_id,$request->cellno, $request->email,$request->homeno,$request->workno,$request->relation]);
 
         if($updated){
             return redirect('emergency-information')->with('success', 'Contact Added!');
         }else{
             return redirect('emergency-information')->withInput($request->all())->with('error','Error adding details');
+        }
+
+    }
+
+    public function emergency_information_delete(Request $request)
+    {
+
+        $deleted =  DB::table('patient_emergency_contact')->where('id', '=', $request->id)->delete();
+
+
+        if($deleted){
+            return redirect('emergency-information')->with('success', 'Deleted successfully');
+        }else{
+            return redirect('emergency-information')->withInput($request->all())->with('error','Error deleting details');
         }
 
     }
@@ -338,33 +377,18 @@ class HomeController extends Controller
 
     }
 
-    public function provider_auto(Request $request)
+    public function providers_delete(Request $request)
     {
-        $data = DB::table('patient_provider')->orWhere("first_name","LIKE","%{$request->input('query')}%")->orWhere('last_name', "LIKE","%{$request->input('query')}%")->orWhere('provider_org', "LIKE","%{$request->input('query')}%")->get();
+
+        $deleted =  DB::table('patient_provider')->where('id', '=', $request->id)->delete();
 
 
-        return response()->json($data);
-    }
-    public function symptoms(Request $request)
-    {
-        $data = DB::table('symptoms')->where( 'status' ,1)->orWhere("name","LIKE","%{$request->input('query')}%")->get();
+        if($deleted){
+            return redirect('providers')->with('success', 'Deleted successfully');
+        }else{
+            return redirect('providers')->withInput($request->all())->with('error','Error deleting details');
+        }
 
-
-        return response()->json($data);
-    }
-    public function bodylocated(Request $request)
-    {
-        $data = DB::table('body_parts')->where( 'status' ,1)->orWhere("name","LIKE","%{$request->input('query')}%")->get();
-
-
-        return response()->json($data);
-    }
-    public function impairedactivity(Request $request)
-    {
-        $data = DB::table('impaired_activity')->where( 'status' ,1)->orWhere("name","LIKE","%{$request->input('query')}%")->get();
-
-
-        return response()->json($data);
     }
 
     public function medications(Request $request)
@@ -425,6 +449,20 @@ class HomeController extends Controller
             }
         }
 
+
+    }
+
+    public function medications_delete(Request $request)
+    {
+
+        $deleted =  DB::table('patient_medication')->where('id', '=', $request->id)->delete();
+
+
+        if($deleted){
+            return redirect('medications')->with('success', 'Deleted successfully');
+        }else{
+            return redirect('medications')->withInput($request->all())->with('error','Error deleting details');
+        }
 
     }
 
@@ -501,6 +539,19 @@ class HomeController extends Controller
 
     }
 
+    public function allergies_delete(Request $request)
+    {
+
+        $deleted =  DB::table('patient_allergy')->where('id', '=', $request->id)->delete();
+
+
+        if($deleted){
+            return redirect('allergies')->with('success', 'Deleted successfully');
+        }else{
+            return redirect('allergies')->withInput($request->all())->with('error','Error deleting details');
+        }
+
+    }
 
     public function medical_history(Request $request)
     {
@@ -563,7 +614,7 @@ class HomeController extends Controller
                 $event_to='';
             }
 
-            $updated= DB::update('update patient_insurance set event_type = ?, event_from = ?, event_to = ?,event_occur = ?, event_treatment = ? where id = ?', [$request->eventtype, $event_from,$event_to,$request->eventoccur,$request->eventtreatment,$id]);
+            $updated= DB::update('update patient_event set event_type = ?, event_from = ?, event_to = ?,event_occur = ?, event_treatment = ? where id = ?', [$request->eventtype, $event_from,$event_to,$request->eventoccur,$request->eventtreatment,$id]);
             if($updated){
                 return redirect('medical-history')->with('success', 'Event details updated!');
             }else{
@@ -571,6 +622,20 @@ class HomeController extends Controller
             }
         }
 
+
+    }
+
+    public function medical_history_delete(Request $request)
+    {
+
+        $deleted =  DB::table('patient_event')->where('id', '=', $request->id)->delete();
+
+
+        if($deleted){
+            return redirect('medical-history')->with('success', 'Deleted successfully');
+        }else{
+            return redirect('medical-history')->withInput($request->all())->with('error','Error deleting details');
+        }
 
     }
 
@@ -628,6 +693,20 @@ class HomeController extends Controller
 
     }
 
+    public function insurance_information_delete(Request $request)
+    {
+
+        $deleted =  DB::table('patient_insurance')->where('id', '=', $request->id)->delete();
+
+
+        if($deleted){
+            return redirect('insurance-information')->with('success', 'Deleted successfully');
+        }else{
+            return redirect('insurance-information')->withInput($request->all())->with('error','Error deleting details');
+        }
+
+    }
+
     public function preferred_pharmacy(Request $request)
     {
         $pharmacy_info = DB::table('patient_pharmacy')->where( 'user_id' ,$this->user_id)->get();
@@ -682,6 +761,20 @@ class HomeController extends Controller
 
 
     }
+
+    public function preferred_pharmacy_delete(Request $request)
+    {
+
+        $deleted =  DB::table('patient_pharmacy')->where('id', '=', $request->id)->delete();
+
+
+        if($deleted){
+            return redirect('preferred-pharmacy')->with('success', 'Deleted successfully');
+        }else{
+            return redirect('preferred-pharmacy')->withInput($request->all())->with('error','Error deleting details');
+        }
+
+    }
     public function faq()
     {
         $data = array(
@@ -716,5 +809,42 @@ class HomeController extends Controller
             'pagetitle' =>  "Terms Of Use"
         );
         return view('terms_of_use')->with('data', $data);
+    }
+
+    /* Auto suggestion */
+    public function provider_auto(Request $request)
+    {
+        $data = DB::table('patient_provider')->orWhere("first_name","LIKE","%{$request->input('query')}%")->orWhere('last_name', "LIKE","%{$request->input('query')}%")->orWhere('provider_org', "LIKE","%{$request->input('query')}%")->get();
+
+
+        return response()->json($data);
+    }
+    public function symptoms(Request $request)
+    {
+        $data = DB::table('symptoms')->where( 'status' ,1)->orWhere("name","LIKE","%{$request->input('query')}%")->get();
+
+
+        return response()->json($data);
+    }
+    public function bodylocated(Request $request)
+    {
+        $data = DB::table('body_parts')->where( 'status' ,1)->orWhere("name","LIKE","%{$request->input('query')}%")->get();
+
+
+        return response()->json($data);
+    }
+    public function impairedactivity(Request $request)
+    {
+        $data = DB::table('impaired_activity')->where( 'status' ,1)->orWhere("name","LIKE","%{$request->input('query')}%")->get();
+
+
+        return response()->json($data);
+    }
+    public function explore(Request $request)
+    {
+        $data = DB::table('explore')->where( 'status' ,1)->orWhere("name","LIKE","%{$request->input('query')}%")->groupBy('name')->get();
+
+
+        return response()->json($data);
     }
 }
