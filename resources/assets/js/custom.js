@@ -208,6 +208,56 @@ $('.sf-menu .list .listIn').click(function(){
                 }
             });
         });
+
+        $('#medication-submit').click(function (e) {
+            e.preventDefault();
+            var drugname = $('#drugname').val();
+            var dosage = $('#dosage').val();
+            var medschedule = $('#medschedule').val();
+            var medstart = $('#medstart').val();
+            var presdoctor = $('#presdoctor').val();
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: 'medications/new',
+                dataType: 'json',
+                data: { drugname: drugname, dosage: dosage, medschedule: medschedule, medstart: medstart, presdoctor: presdoctor},
+                success: function(response ) {
+
+                    if(response.success){
+                        $("#medicationModal").modal('toggle');
+                        window.location.href="/metis/medications";
+                        //alert(Object.keys(response.errors).length);
+
+                    }else{
+                        $('#drugname-error,#dosage-error,#medschedule-error,#medstart-error,#presdoctor-error').empty();
+                        if(response.errors.drugname != ''){
+                            $('#drugname-error').html(response.errors.drugname);
+                        }
+                        if(response.errors.dosage != ''){
+                            $('#dosage-error').html(response.errors.dosage);
+
+                        }
+                        if(response.errors.medschedule!=''){
+                            $('#medschedule-error').html(response.errors.medschedule);
+                        }
+
+                        if(response.errors.medstart!=''){
+                            $('#medstart-error').html(response.errors.medstart);
+                        }
+
+                        if(response.errors.presdoctor!=''){
+                            $('#presdoctor-error').html(response.errors.presdoctor);
+                        }
+                    }
+
+                }
+            });
+        });
+
         $('#event-submit').click(function (e) {
             e.preventDefault();
             var eventtype = $('#eventtype').val();

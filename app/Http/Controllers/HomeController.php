@@ -92,7 +92,7 @@ class HomeController extends Controller
             'drugname' => 'required|max:255',
             'firstoccur' => 'required',
             'reaction' => 'required',
-            'allergytreat' => 'required',
+
 
         ]);
     }
@@ -415,9 +415,8 @@ class HomeController extends Controller
             return response()->json(['errors'=>$validator->errors(),'success' => 0]);
 
         }
-        $usableDate = DateTime::createFromFormat('m/d/Y', $request->medstart);
-        $med_start= $usableDate->format('Y-m-d');
-        DB::insert('insert into patient_medication (drug_name, dosage,user_id, med_schedule, med_start, pres_doctor) values (?, ?, ?, ?, ?, ?)', [$request->drugname, $request->dosage,$this->user_id,$request->medschedule,$med_start,$request->presdoctor]);
+
+        DB::insert('insert into patient_medication (drug_name, dosage,user_id, med_schedule, med_start, pres_doctor) values (?, ?, ?, ?, ?, ?)', [$request->drugname, $request->dosage,$this->user_id,$request->medschedule,$request->medstart,$request->presdoctor]);
 
         return json_encode(array(
             'success' => 1
@@ -437,10 +436,8 @@ class HomeController extends Controller
                 );
             }
 
-            $usableDate = DateTime::createFromFormat('m/d/Y', $request->medstart);
-            $med_start= $usableDate->format('Y-m-d');
 
-            $updated= DB::update('update patient_medication set drug_name =?,dosage =?,med_schedule=?, med_start=?, pres_doctor=? where id = ?', [$request->drugname, $request->dosage,$request->medschedule,$med_start,$request->presdoctor,$id]);
+            $updated= DB::update('update patient_medication set drug_name =?,dosage =?,med_schedule=?, med_start=?, pres_doctor=? where id = ?', [$request->drugname, $request->dosage,$request->medschedule,$request->medstart,$request->presdoctor,$id]);
             if($updated){
 
                 return redirect('medications')->with('success', 'Medication details updated!');
@@ -843,6 +840,13 @@ class HomeController extends Controller
     public function explore(Request $request)
     {
         $data = DB::table('explore')->where( 'status' ,1)->orWhere("name","LIKE","%{$request->input('query')}%")->groupBy('name')->get();
+
+
+        return response()->json($data);
+    }
+    public function med_sup(Request $request)
+    {
+        $data = DB::table('medication')->where( 'status' ,1)->where("name","LIKE","%{$request->input('query')}%")->get();
 
 
         return response()->json($data);

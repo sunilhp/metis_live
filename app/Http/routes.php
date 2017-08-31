@@ -131,6 +131,7 @@ Route::get('symptoms',array('as'=>'symptoms','uses'=>'HomeController@symptoms'))
 Route::get('impaired-activity',array('as'=>'impaired-activity','uses'=>'HomeController@impairedactivity'));
 Route::get('body-located',array('as'=>'body-located','uses'=>'HomeController@bodylocated'));
 Route::get('explore-list',array('as'=>'explore-list','uses'=>'HomeController@explore'));
+Route::get('med-sup',array('as'=>'med-sup','uses'=>'HomeController@med_sup'));
 
 
 

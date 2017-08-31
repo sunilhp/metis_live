@@ -31,7 +31,7 @@
                     <a href="#" class="clickForMap">Open Google Maps</a>
                 </li>
                 <li><a href="tel:318-445-3973"><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->refills_number}}</small></a></li>
-                <li><a href="tel:855-283-MEDS"><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->toll_free}} (Toll Free)</small></a></li>
+                <li><a href="tel:855-283-MEDS"><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->toll_free}} </small></a></li>
             </ul>
         </div>
     </div>
@@ -54,7 +54,7 @@
         <form method="post" action="">
             {{ csrf_field() }}
         <div class="modal-body">
-            <h2>New Pharmacy</h2>
+            <h2>Pharmacy</h2>
 
             <div class="form-group">
                 <span class="help-block">
@@ -77,7 +77,7 @@
                 <span class="help-block">
                     <strong id="refillsnumber-error">{{ $errors->first('refillsnumber') }}</strong>
                 </span>
-                <input type="text" class="inn1" placeholder="Refills Number" id="refillsnumber" name="refillsnumber" value="@if(isset($current->refills_number)){{$current->refills_number}}@endif">
+                <input type="text" class="inn1" placeholder="Phone" id="refillsnumber" name="refillsnumber" value="@if(isset($current->refills_number)){{$current->refills_number}}@endif">
             </div>
             <div class="clearfix"></div>
             <div class="icon1"><img src="{{ url('/resources/assets/img/crosssPic.png')}}"></div>
@@ -85,7 +85,7 @@
                 <span class="help-block">
                     <strong id="tollfree-error">{{ $errors->first('tollfree') }}</strong>
                 </span>
-                <input type="text" class="inn1" placeholder="Call Center" id="tollfree" name="tollfree" value="@if(isset($current->toll_free)){{$current->toll_free}}@endif">
+                <input type="text" class="inn1" placeholder="Fax" id="tollfree" name="tollfree" value="@if(isset($current->toll_free)){{$current->toll_free}}@endif">
             </div>
             <div class="btns">
                 <a href="#" class="cancel" data-dismiss="modal">CANCEL</a>
@@ -164,6 +164,27 @@
      @endforeach
     }
 
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#refillsnumber,#tollfree").mask("(999) 999-9999");
+
+
+        $("#refillsnumber,#tollfree").on("blur", function () {
+            var last = $(this).val().substr($(this).val().indexOf("-") + 1);
+
+            if (last.length == 5) {
+                var move = $(this).val().substr($(this).val().indexOf("-") + 1, 1);
+
+                var lastfour = last.substr(1, 4);
+
+                var first = $(this).val().substr(0, 9);
+
+                $(this).val(first + move + '-' + lastfour);
+            }
+        });
+    });
 
 </script>
 @endsection

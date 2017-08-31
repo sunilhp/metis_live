@@ -74,7 +74,7 @@
                             <input class="range-slider__range" type="range" min="0" max="10" id="reaction" name="reaction" value="@if(isset($current->reaction)){{$current->reaction}}@endif">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group hide">
                         <span class="help-block">
                             <strong id="allergytreat-error">{{ $errors->first('allergytreat') }}</strong>
                         </span>

@@ -25,7 +25,7 @@
                             <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->dosage}}</small></li>
                             <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->med_schedule}}</small></li>
                             <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->pres_doctor}}</small></li>
-                            <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{date('m/d/Y', strtotime($record->med_start))}}</small></li>
+                            <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->med_start}}</small></li>
                         </ul>
                     </div>
                 </div>
@@ -52,16 +52,12 @@
                         <input type="text" placeholder="Like Lipitor, Prilosec, etc" class="inn12"  id="drugname" name="drugname" value="@if(isset($current->drug_name)){{$current->drug_name}}@endif">
                     </div>
 
-                    <div class="form-group text-center">
+                    <div class="form-group">
                         <span class="help-block">
                             <strong id="dosage-error">{{ $errors->first('dosage') }}</strong>
                         </span>
-                        <label class="text-center">What is your current dosage?</label>
-                        <select class="select12" id="dosage" name="dosage">
-                            <option>10 mg</option>
-                            <option>20 mg</option>
-                            <option>30 mg</option>
-                        </select>
+                        <label>What is your current dosage?</label>
+                       <input type="text" placeholder="10 mg, 5ml, etc." class="text_in1"  id="dosage" name="dosage" value="@if(isset($current->dosage)){{$current->dosage}}@endif">
                     </div>
                     <div class="form-group">
                         <span class="help-block">
@@ -75,7 +71,7 @@
                             <strong id="medstart-error">{{ $errors->first('medstart') }}</strong>
                         </span>
                         <label>What condition is this medication for?</label>
-                        <input type="text" class="inn1 inn1a1" placeholder="mm/dd/yyyy" id="medstart" name="medstart" value="@if(isset($current->med_start)){{date('m/d/Y', strtotime($current->med_start))}}@endif">
+                        <input type="text" class="inn1 inn1a1" placeholder="Medication for.." id="medstart" name="medstart" value="@if(isset($current->med_start)){{$current->med_start}}@endif">
                     </div>
                     <div class="form-group">
                         <span class="help-block">
@@ -103,5 +99,20 @@
     @if(($errors->any()) || (Request::method() ==='GET' && Request::segment(2)>0))
         <script type="text/javascript">$(document).ready(function(){ $('#medicationModal').modal('show'); });</script>
     @endif
+    <script type="text/javascript">
+    var path = "{{ route('med-sup') }}";
+    jQuery('#drugname').typeahead({
+    items: 10,
+
+    source:function (query, process) {
+    return $.get(path, { query: query }, function (response) {
+
+    return process(response);
+    });
+    },
+    autoSelect: true
+
+    });
+    </script>
 @endsection
 
