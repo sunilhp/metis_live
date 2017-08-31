@@ -56,7 +56,7 @@
                         <span class="help-block">
                             <strong id="dosage-error">{{ $errors->first('dosage') }}</strong>
                         </span>
-                        <label>What is your current dosage?</label>
+                        <label>What is your current dose?</label>
                        <input type="text" placeholder="10 mg, 5ml, etc." class="text_in1"  id="dosage" name="dosage" value="@if(isset($current->dosage)){{$current->dosage}}@endif">
                     </div>
                     <div class="form-group">
