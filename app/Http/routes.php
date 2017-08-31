@@ -134,5 +134,8 @@ Route::get('body-located',array('as'=>'body-located','uses'=>'HomeController@bod
 Route::get('explore-list',array('as'=>'explore-list','uses'=>'HomeController@explore'));
 Route::get('med-sup',array('as'=>'med-sup','uses'=>'HomeController@med_sup'));
 
+/*EE*/
+Route::get('/confirm_user_account/{code}', 'Auth\AuthController@confirm_user_account');
+
 
 
