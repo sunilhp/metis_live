@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use Validator;
+//use Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 
 class AuthController extends Controller
@@ -46,7 +49,7 @@ class AuthController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -64,7 +67,7 @@ class AuthController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return User
      */
     protected function create(array $data)
@@ -80,7 +83,8 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $validator = $this->validator($request->all());
+        $user_data = $request->all();
+        $validator = $this->validator($user_data);
 
         if ($validator->fails()) {
             $this->throwValidationException(
@@ -88,10 +92,40 @@ class AuthController extends Controller
             );
         }
 
-        $user = $this->create($request->all());
+        $user = $this->create($user_data);
 
-       # $this->activationService->sendActivationMail($user);
+        # $this->activationService->sendActivationMail($user);
+
+        $user_id = $user->id;
+
+        //send user confirm request email
+
+        $user_email = $user_data['email'];
+
+        //$code = base64_encode($user_id);
+        $code = $user_id;
+
+        $user_data['code'] = $code;
+
+        if ($_SERVER['HTTP_HOST'] != "localhost") {
+            Mail::send('emails.user_signup_confirm', $user_data, function ($message) use ($user_email) {
+                $message->to($user_email)->subject('Welcome to Metis');
+            });
+        }
 
         return redirect('/login');
     }
+
+    public function confirm_user_account($code)
+    {
+        //$user_id = base64_decode($code);
+        $user_id = $code;
+        $user = User::find($user_id);
+        if ($user) {
+            $user->activated = 1;
+            $user->save();
+        }
+        return Redirect::to('/');
+    }
+
 }

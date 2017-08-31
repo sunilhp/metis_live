@@ -8,6 +8,7 @@
                     <a href="{{ url('/advocacy/video-new') }}" class="ringButton"><img src="{{ url('/resources/assets/img/B97C92E3-5A54-45A9-9935-9D93EE456077@1x.png')}}"></a>
                     <span onClick="callButton.onClick();" class="ringButton"><img src="{{ url('/resources/assets/img/90AE5F81-BFC6-4386-A0CC-03232F78AF19@1x.png')}}"></span>
                     <span id="cht-btn"  onClick="chatButton.onClick();" class="ringButton"></span>
+                    <a href="{{ url('/advocacy/contact-form-new') }}" class="ringButton"><img src="{{ url('/resources/assets/img/contact_icon.png')}}"></a>
                 </div>
             </div>
         </div>
