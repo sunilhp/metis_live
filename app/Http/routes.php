@@ -78,6 +78,7 @@ Route::post('/advocacy/messages', 'AdvocacyController@messages');
 Route::get('/advocacy/messages/{id}', 'AdvocacyController@messages');
 Route::post('/advocacy/messages/{id}', 'AdvocacyController@messages');
 Route::get('/advocacy/messages/{id}', 'AdvocacyController@messages');
+Route::get('/advocacy/contact-form-new', 'AdvocacyController@contact_form_new');
 
 
 Route::get('/tools', 'ToolsController@index');
