@@ -3,7 +3,7 @@
 @section('content')
     <section class="downHeader">
         <div class="container">
-            <a href="#" class="addCont" class="addCont" data-toggle="modal" data-target="#myModal1">+Add Contact</a>
+            <a href="#" class="addCont" data-toggle="modal" data-target="#myModal1">+Add Contact</a>
             <a href="#" class="ringButton"><img src="{{ url('/resources/assets/img/download.png')}}" alt="Download" title="Download"/></a>
             <a href="#" class="ringButton"><img src="{{ url('/resources/assets/img/print.png')}}" alt="Print" title="Print"/></a>
             <a href="#" class="ringButton"><img src="{{ url('/resources/assets/img/share.png')}}" alt="Share" title="Share"/></a>
@@ -20,9 +20,9 @@
                 <div class="clearfix"></div>
                 <div class="detailBox">
                     <ul>
-                        <li><a href="#"><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{ $record->contact_no }}</small></a></li>
-                        @if(isset($record->alternate_no) && trim($record->alternate_no)!="")<li><a href="#"><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{ $record->alternate_no }}</small></a></li> @endif
-                        <li><a href="#"><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{ $record->relation }}</small></a></li>
+                        <li><a href="#"><span><img src="{{asset('resources/assets/img/icon/home_phone_b.png')}}"></span><small>{{ $record->home_no }}</small></a></li>
+                        @if(isset($record->work_no) && trim($record->work_no)!="")<li><a href="#"><span><img src="{{asset('resources/assets/img/icon/work_phone_b.png')}}"></span><small>{{ $record->work_no }}</small></a></li> @endif
+                        <li><a href="#"><span><img src="{{asset('resources/assets/img/icon/relationships_b.png')}}"></span><small>{{ $record->relation }}</small></a></li>
                     </ul>
                 </div>
             </div>

@@ -21,10 +21,10 @@
                     <div class="clearfix"></div>
                     <div class="detailBox">
                         <ul>
-                            <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->dosage}}</small></li>
-                            <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->med_schedule}}</small></li>
-                            <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->pres_doctor}}</small></li>
-                            <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{date('m/d/Y', strtotime($record->med_start))}}</small></li>
+                            <li><span><img src="{{asset('resources/assets/img/icon/dosage_b.png')}}"></span><small>{{$record->dosage}}</small></li>
+                            <li><span><img src="{{asset('resources/assets/img/icon/frequency_medicaton_b.png')}}"></span><small>{{$record->med_schedule}}</small></li>
+                            <li><span><img src="{{asset('resources/assets/img/icon/received_treatment_b.png')}}"></span><small>{{$record->pres_doctor}}</small></li>
+                            <li><span><img src="{{asset('resources/assets/img/icon/time_of_occurance_b.png')}}"></span><small>{{date('m/d/Y', strtotime($record->med_start))}}</small></li>
                         </ul>
                     </div>
                 </div>

@@ -30,9 +30,9 @@
                     <div class="clearfix"></div>
                     <div class="detailBox">
                         <ul>
-                            <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->insurance_name}}</small></li>
-                            <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->web_url}}</small></li>
-                            <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->address1}}<br>{{$record->address2}}</small></li>
+                            <li><span><img src="{{asset('resources/assets/img/provider.png')}}"></span><small>{{$record->insurance_name}}</small></li>
+                            <li><span><img src="{{asset('resources/assets/img/icon/url_b.png')}}"></span><small>{{$record->web_url}}</small></li>
+                            <li><span><img src="{{asset('resources/assets/img/icon/address_b.png')}}"></span><small>{{$record->address1}}<br>{{$record->address2}}</small></li>
                         </ul>
                     </div>
                 </div>

@@ -3,7 +3,7 @@
     <section class="video_sessions">
         <div class="container">
             <a href="{{url('/advocacy/sessions') }}">
-            <figure><img src="{{ url('/resources/assets/img/04847E23-F37B-4032-8675-D3ED3F22B7AB@1x.png')}}"></figure>
+            <figure><img src="{{ url('/resources/assets/img/chat.png')}}"></figure>
             <h2>SESSIONS</h2>
             </a>
             <a href="{{url('/advocacy/messages') }}">

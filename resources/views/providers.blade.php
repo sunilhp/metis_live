@@ -22,10 +22,10 @@
                     <div class="clearfix"></div>
                     <div class="detailBox">
                         <ul>
-                            <li><a href="tel:{{ $record->provider_phone_no }}"><span><img src="{{ url('/resources/assets/img/crosssPic.png') }}" alt="image"/></span><small>{{ $record->provider_phone_no }}</small></a></li>
-                            <li><a href="tel:{{ $record->provider_mobile_no }}"><span><img src="{{ url('/resources/assets/img/crosssPic.png') }}" alt="image"/></span><small>{{ $record->provider_mobile_no }}</small></a></li>
-                            <li><a href="mailto:{{ $record->provider_email }}"><span><img src="{{ url('/resources/assets/img/crosssPic.png') }}" alt="image"/></span><small>{{ $record->provider_email }}</small></a></li>
-                            <li><a href="#"><span><img src="{{ url('/resources/assets/img/crosssPic.png') }}" alt="image"/></span><small>{{ $record->provider_address }}</small></a></li>
+                            <li><a href="tel:{{ $record->provider_phone_no }}"><span><img src="{{asset('resources/assets/img/icon/home_phone_b.png')}}"></span><small>{{ $record->provider_phone_no }}</small></a></li>
+                            <li><a href="tel:{{ $record->provider_mobile_no }}"><span><img src="{{asset('resources/assets/img/icon/cell_phone_b.png')}}"></span><small>{{ $record->provider_mobile_no }}</small></a></li>
+                            <li><a href="mailto:{{ $record->provider_email }}"><span><img src="{{asset('resources/assets/img/icon/email_b.png')}}"></span><small>{{ $record->provider_email }}</small></a></li>
+                            <li><a href="#"><span><img src="{{asset('resources/assets/img/icon/address_b.png')}}"></span><small>{{ $record->provider_address }}</small></a></li>
                         </ul>
                     </div>
                 </div>

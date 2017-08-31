@@ -26,11 +26,11 @@
         <div class="clearfix"></div>
         <div class="detailBox">
             <ul>
-                <li><a href="#"><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->address1}} {{$record->address2}}</small></a>
+                <li><a href="#"><span><img src="{{asset('resources/assets/img/icon/address_b.png')}}"></span><small>{{$record->address1}} {{$record->address2}}</small></a>
                     <a href="#" class="clickForMap">Open Google Maps</a>
                 </li>
-                <li><a href="tel:318-445-3973"><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->refills_number}}</small></a></li>
-                <li><a href="tel:855-283-MEDS"><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->toll_free}} (Toll Free)</small></a></li>
+                <li><a href="tel:318-445-3973"><span><img src="{{asset('resources/assets/img/icon/home_phone_b.png')}}"></span><small>{{$record->refills_number}}</small></a></li>
+                <li><a href="tel:855-283-MEDS"><span><img src="{{asset('resources/assets/img/icon/cell_phone_b.png')}}"></span><small>{{$record->toll_free}} (Toll Free)</small></a></li>
             </ul>
         </div>
     </div>

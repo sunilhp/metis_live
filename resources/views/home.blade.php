@@ -21,7 +21,7 @@
             </a>
             <a href="{{url('/advocacy') }}" class="sec1In">
                 <div class="iconCover">
-                    <img src="{{ url('/resources/assets//img/icon3.png') }}" alt="icon"/>
+                    <img src="{{asset('resources/assets/img/icon/advocacy_wl.png')}}">
                 </div>
                 <div class="clearfix"></div>
                 <span>ADVOCACY</span>

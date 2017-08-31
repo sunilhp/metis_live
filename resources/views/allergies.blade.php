@@ -20,9 +20,9 @@
                 <div class="clearfix"></div>
                 <div class="detailBox">
                     <ul>
-                        <li><span><img src="{{ url('/resources/assets/img/crosssPic.png') }}" alt="image"/></span><small>{{date('m/d/Y', strtotime($record->first_occur))}}</small></li>
-                        @if($record->second_occur != '0000-00-00')<li><span><img src="{{ url('/resources/assets/img/crosssPic.png') }}" alt="image"/></span><small>{{date('m/d/Y', strtotime($record->second_occur))}}</small></li>@endif
-                        <li><span><img src="{{ url('/resources/assets/img/crosssPic.png') }}" alt="image"/></span><small>{{$record->allergy_treatment}}</small></li>
+                        <li><span><img src="{{asset('resources/assets/img/icon/time_of_occurance_b.png')}}"></span><small>{{date('m/d/Y', strtotime($record->first_occur))}}</small></li>
+                        @if($record->second_occur != '0000-00-00')<li><span><img src="{{asset('resources/assets/img/icon/date_calendar_b.png')}}"></span><small>{{date('m/d/Y', strtotime($record->second_occur))}}</small></li>@endif
+                        <li><span><img src="{{asset('resources/assets/img/icon/frequency_medicaton_b.png')}}"></span><small>{{$record->allergy_treatment}}</small></li>
                     </ul>
                 </div>
             </div>

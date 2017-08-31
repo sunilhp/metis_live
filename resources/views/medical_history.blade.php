@@ -23,8 +23,8 @@
 
                 <div class="detailBox">
                     <ul>
-                        <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->event_occur}}</small></li>
-                        @if(isset($record->event_treatment) && trim($record->event_treatment)!="") <li><span><img src="{{ url('/resources/assets/img/crosssPic.png')}}" alt="image"/></span><small>{{$record->event_treatment}}</small></li> @endif
+                        <li><span><img src="{{asset('resources/assets/img/icon/time_of_occurance_b.png')}}"></span><small>{{$record->event_occur}}</small></li>
+                        @if(isset($record->event_treatment) && trim($record->event_treatment)!="") <li><span><img src="{{asset('resources/assets/img/icon/frequency_medicaton_b.png')}}"></span><small>{{$record->event_treatment}}</small></li> @endif
                     </ul>
                 </div>
             </div>

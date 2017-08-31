@@ -47,7 +47,7 @@ label{font-weight:normal;}
 .sf-menu .list .listInner li a .img5{background:url(../img/img5.png) no-repeat center / 100% auto;}
 .sf-menu .list .listInner li a .img6{background:url(../img/img6.png) no-repeat center / 100% auto;}
 .sf-menu .list .listInner li:hover a{  background-color: #fff;  }
-.sf-menu .list .listInner li:hover a small{  color: #4f4f4f; }
+.sf-menu .list .listInner li:hover a small,.sf-menu .list .listInner li:hover a{  color: #4f4f4f; }
 
 /*********************************mob_side_menu end************************************************/
 header{background:#949494 none repeat scroll 0 0;float:left;height:auto;padding:12px 0;text-align:center;width:100%;}
@@ -1312,6 +1312,16 @@ box-shadow: 0 0 9px 1px rgba(0,0,0,0.4);
   content: '';
 }
 
+/*Henri Lehto*/
+.contact_sessions {
+    float: left;
+    padding: 100px 0;
+    text-align: center;
+    width: 100%;
+}
 
+figure img{
+    max-width: 100%;
+}
 
 
